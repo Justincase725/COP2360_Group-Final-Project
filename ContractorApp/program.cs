@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 public class Program
@@ -36,7 +36,11 @@ public class Program
             string? rateInput = Console.ReadLine();
             double hourlyRate = double.TryParse(rateInput, out double r) ? r : 0.0;
 
-            // Create Subcontractor object using your Person 2 class
+            Console.Write("Enter hours worked: ");
+            string? hoursInput = Console.ReadLine();
+            float hoursWorked = float.TryParse(hoursInput, out float h) ? h : 0f;
+
+            // Create Subcontractor object using Person 2 class
             Subcontractor sub = new Subcontractor(
                 name,
                 contractorNumber,
@@ -55,8 +59,10 @@ public class Program
             Console.WriteLine($"Shift: {(sub.GetShift() == 1 ? "Day" : "Night")}");
             Console.WriteLine($"Hourly Rate: {sub.GetHourlyPayRate():C}");
 
-            // NOTE: Person 3 will later add a pay-calculation method to Subcontractor
-            // and Person 4 can call it here to display pay.
+            // Use Person 3's pay-calculation method
+            float pay = sub.ComputePay(hoursWorked);
+            Console.WriteLine($"Hours Worked: {hoursWorked}");
+            Console.WriteLine($"Calculated Pay: {pay:C}");
 
             Console.WriteLine();
             Console.Write("Create another subcontractor? (y/n): ");
@@ -74,7 +80,8 @@ public class Program
         {
             Console.WriteLine(
                 $"{s.GetContractorName()} (#{s.GetContractorNumber()}) - " +
-                $"Shift {s.GetShift()} - Rate {s.GetHourlyPayRate():C}"
+                $"{(s.GetShift() == 1 ? "Day" : "Night")} Shift - " +
+                $"Rate {s.GetHourlyPayRate():C}"
             );
         }
 
