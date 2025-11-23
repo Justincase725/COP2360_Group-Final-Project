@@ -43,4 +43,23 @@ public class Subcontractor : Contractor
     {
         hourlyPayRate = rate;
     }
+
+    // Person 3 – Pay calculation method (required by assignment)
+    // Returns a float and applies a 3% shift differential for night shift
+    public float ComputePay(float hoursWorked)
+    {
+        if (hoursWorked < 0)
+        {
+            hoursWorked = 0;
+        }
+
+        double basePay = hourlyPayRate * hoursWorked;
+
+        if (shift == 2) // night shift
+        {
+            basePay *= 1.03;    // add 3% differential
+        }
+
+        return (float)basePay;
+    }
 }
